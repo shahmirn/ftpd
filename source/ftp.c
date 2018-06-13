@@ -2527,8 +2527,10 @@ retrieve_transfer(ftp_session_t *session)
   }
 
   /* send any pending data */
+  size_t send_size = session->buffersize - session->bufferpos;
+  if (send_size > 0x1000) send_size = 0x1000;
   rc = send(session->data_fd, session->buffer + session->bufferpos,
-            session->buffersize - session->bufferpos, 0);
+            send_size, 0);
   if(rc <= 0)
   {
     /* error sending data */
