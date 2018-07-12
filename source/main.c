@@ -124,14 +124,14 @@ main(int  argc,
 #endif
   if(fp == NULL)
   {
-    console_print(RED "freopen: 0x%08X\n" RESET, errno);
+    // console_print(RED "freopen: 0x%08X\n" RESET, errno);
     goto log_fail;
   }
 
   /* truncate log file */
   if(ftruncate(fileno(fp), 0) != 0)
   {
-    console_print(RED "ftruncate: 0x%08X\n" RESET, errno);
+    // console_print(RED "ftruncate: 0x%08X\n" RESET, errno);
     goto log_fail;
   }
 #endif
@@ -164,7 +164,9 @@ main(int  argc,
 #ifdef ENABLE_LOGGING
 log_fail:
   if(fclose(stderr) != 0)
-    console_print(RED "fclose(%d): 0x%08X\n" RESET, fileno(stderr), errno);
+  {
+    // console_print(RED "fclose(%d): 0x%08X\n" RESET, fileno(stderr), errno);
+  }
 #endif
 
 #ifdef _3DS
